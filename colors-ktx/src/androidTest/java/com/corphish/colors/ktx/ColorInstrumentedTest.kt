@@ -1,5 +1,6 @@
 package com.corphish.colors.ktx
 
+import android.graphics.Color
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.Test
@@ -70,5 +71,17 @@ class ColorInstrumentedTest {
 
         // All colors must be light
         assertEquals(_randomTestCount, successes)
+    }
+
+    /**
+     * Tests the surface color property.
+     */
+    @Test
+    fun testSurfaceColor() {
+        // White background should have black text
+        assertEquals(Color.BLACK, Color.WHITE.onSurfaceColor)
+
+        // Black background should have white text
+        assertEquals(Color.WHITE, Color.BLACK.onSurfaceColor)
     }
 }
