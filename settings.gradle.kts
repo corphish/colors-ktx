@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ColorFeast"
 include(":app")
+include(":colors-ktx")
