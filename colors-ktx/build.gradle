@@ -33,5 +33,9 @@ android {
 }
 
 dependencies {
+    // Needed for library
+    implementation 'androidx.annotation:annotation:1.2.0'
+
+    // Testing
     testImplementation 'junit:junit:4.13.2'
 }
