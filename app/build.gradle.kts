@@ -35,11 +35,13 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-Xallow-jvm-ir-dependencies"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
+        kotlinCompilerVersion = "1.4.32"
         kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
     }
 }
