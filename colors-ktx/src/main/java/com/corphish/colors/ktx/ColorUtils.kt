@@ -75,7 +75,7 @@ object ColorUtils {
     @ColorInt
     fun getDarkenedColor(
         @ColorInt color: Int,
-        @FloatRange(from = 0.0, to = 1.0) darknessFactor: Float = 0.1f)
+        @FloatRange(from = -1.0, to = 1.0) darknessFactor: Float = 0.1f)
     : Int {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
@@ -97,16 +97,8 @@ object ColorUtils {
     @ColorInt
     fun getLightenedColor(
         @ColorInt color: Int,
-        @FloatRange(from = 0.0, to = 1.0) lightnessFactor: Float = 0.1f
-    ): Int {
-        val factor = (1 - lightnessFactor)
-
-        val red = ((Color.red(color) * (1 - factor) / 255 + factor) * 255).toInt()
-        val green = ((Color.green(color) * (1 - factor) / 255 + factor) * 255).toInt()
-        val blue = ((Color.blue(color) * (1 - factor) / 255 + factor) * 255).toInt()
-
-        return Color.argb(Color.alpha(color), red, green, blue)
-    }
+        @FloatRange(from = -1.0, to = 1.0) lightnessFactor: Float = 0.1f
+    ) = getDarkenedColor(color, -lightnessFactor)
 
     /**
      * Generates a random dark color.
