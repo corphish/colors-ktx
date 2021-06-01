@@ -44,7 +44,7 @@ object ColorUtils {
      */
     fun isColorDark(
         @ColorInt color: Int,
-        @FloatRange(from = -1.0, to = 1.0) assertionFactor: Double = COLOR_ASSERTION_DARK
+        @FloatRange(from = 0.0, to = 1.0) assertionFactor: Double = COLOR_ASSERTION_DARK
     ) = getDarkness(color) >= assertionFactor
 
     /**
@@ -60,7 +60,7 @@ object ColorUtils {
      */
     fun isColorLight(
         @ColorInt color: Int,
-        @FloatRange(from = -1.0, to = 1.0) assertionFactor: Double = COLOR_ASSERTION_DARK
+        @FloatRange(from = 0.0, to = 1.0) assertionFactor: Double = COLOR_ASSERTION_DARK
     ) = getDarkness(color) < assertionFactor
 
     /**
@@ -75,7 +75,7 @@ object ColorUtils {
     @ColorInt
     fun getDarkenedColor(
         @ColorInt color: Int,
-        @FloatRange(from = -1.0, to = 1.0) darknessFactor: Float = 0.2f)
+        @FloatRange(from = 0.0, to = 1.0) darknessFactor: Float = 0.1f)
     : Int {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
@@ -97,7 +97,7 @@ object ColorUtils {
     @ColorInt
     fun getLightenedColor(
         @ColorInt color: Int,
-        @FloatRange(from = -1.0, to = 1.0) lightnessFactor: Float = 0.2f
+        @FloatRange(from = 0.0, to = 1.0) lightnessFactor: Float = 0.1f
     ): Int {
         val factor = (1 - lightnessFactor)
 
