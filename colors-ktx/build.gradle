@@ -37,7 +37,6 @@ android {
 }
 
 tasks.named("dokkaHtml") {
-    outputDirectory.set("$rootDir/docs")
     dokkaSourceSets {
         named("main") {
             noAndroidSdkLink.set(false)
