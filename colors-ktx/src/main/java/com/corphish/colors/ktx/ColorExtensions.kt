@@ -124,3 +124,10 @@ fun String.asColorIntOrBlack() = this.asColorIntOr(Color.BLACK)
  */
 @ColorInt
 fun String.asColorIntOrWhite() = this.asColorIntOr(Color.WHITE)
+
+/**
+ * Returns the hexadecimal representation of this color.
+ * @since 0.0.1
+ */
+val @receiver:ColorInt Int.colorHex: String
+    get() = ColorUtils.hexStringFromInt(this)
