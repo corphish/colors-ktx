@@ -6,6 +6,8 @@ import androidx.annotation.FloatRange
 
 /**
  * Utility class that provides various helpers for working with colors.
+ * @author Avinaba Dalal
+ * @since 0.0.1
  */
 object ColorUtils {
 
@@ -16,6 +18,7 @@ object ColorUtils {
      *
      * @param color Color as Int.
      * @return Percentage of darkness.
+     * @since 0.0.1
      */
     private fun getDarkness(@ColorInt color: Int) =
         1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
@@ -24,6 +27,7 @@ object ColorUtils {
      * Default value to determine whether a color is dark or not.
      * If the darkness returned from the getDarkness function is greater than
      * this value, it is safe to draw a light color on top of that color.
+     * @since 0.0.1
      */
     const val COLOR_ASSERTION_DARK = 0.35
 
@@ -36,9 +40,12 @@ object ColorUtils {
      *                        default value is 0.35. Colors whose darkness is greater than this factor
      *                        are dark.
      * @return Boolean indicating whether the given color is dark or not.
+     * @since 0.0.1
      */
-    fun isColorDark(@ColorInt color: Int, assertionFactor: Double = COLOR_ASSERTION_DARK) =
-        getDarkness(color) >= assertionFactor
+    fun isColorDark(
+        @ColorInt color: Int,
+        @FloatRange(from = -1.0, to = 1.0) assertionFactor: Double = COLOR_ASSERTION_DARK
+    ) = getDarkness(color) >= assertionFactor
 
     /**
      * Checks if a given color is light or not.
@@ -49,9 +56,12 @@ object ColorUtils {
      *                        default value is 0.35. Colors whose darkness is lesser than this factor
      *                        are light.
      * @return Boolean indicating whether the given color is light or not.
+     * @since 0.0.1
      */
-    fun isColorLight(@ColorInt color: Int, assertionFactor: Double = COLOR_ASSERTION_DARK) =
-        getDarkness(color) < assertionFactor
+    fun isColorLight(
+        @ColorInt color: Int,
+        @FloatRange(from = -1.0, to = 1.0) assertionFactor: Double = COLOR_ASSERTION_DARK
+    ) = getDarkness(color) < assertionFactor
 
     /**
      * Produces a darker shade of the given color.
@@ -60,9 +70,13 @@ object ColorUtils {
      * @param darknessFactor Factor that determines how much darker the shade will be. This must be a value
      *                       between 0 and 1. Default value is 0.2.
      * @return Darker shade of the color.
+     * @since 0.0.1
      */
     @ColorInt
-    fun getDarkenedColor(@ColorInt color: Int, darknessFactor: Float = 0.2f): Int {
+    fun getDarkenedColor(
+        @ColorInt color: Int,
+        @FloatRange(from = -1.0, to = 1.0) darknessFactor: Float = 0.2f)
+    : Int {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
 
@@ -78,9 +92,13 @@ object ColorUtils {
      * @param lightnessFactor Factor that determines how much lighter the shade will be. This must be a value
      *                       between 0 and 1. Default value is 0.2.
      * @return Lighter shade of the color.
+     * @since 0.0.1
      */
     @ColorInt
-    fun getLightenedColor(@ColorInt color: Int, lightnessFactor: Float = 0.2f): Int {
+    fun getLightenedColor(
+        @ColorInt color: Int,
+        @FloatRange(from = -1.0, to = 1.0) lightnessFactor: Float = 0.2f
+    ): Int {
         val factor = (1 - lightnessFactor)
 
         val red = ((Color.red(color) * (1 - factor) / 255 + factor) * 255).toInt()
@@ -94,6 +112,7 @@ object ColorUtils {
      * Generates a random dark color.
      *
      * @return Random dark color.
+     * @since 0.0.1
      */
     @ColorInt
     fun getRandomDarkColor() =
@@ -103,6 +122,7 @@ object ColorUtils {
      * Generates a random light color.
      *
      * @return Random light color.
+     * @since 0.0.1
      */
     @ColorInt
     fun getRandomLightColor(): Int {
@@ -117,6 +137,12 @@ object ColorUtils {
         return Color.rgb(red, green, blue)
     }
 
+    /**
+     * Gets a random color that can be light or dark.
+     *
+     * @return Random color.
+     * @since 0.0.1
+     */
     @ColorInt
     fun getRandomColor() =
         when ((Math.random() * 2).toInt()) {
@@ -197,6 +223,7 @@ object ColorUtils {
      *
      * @param color Color.
      * @return Hex string of the color.
+     * @since 0.0.1
      */
     fun hexStringFromInt(@ColorInt color: Int) =
         String.format("#%06X", 0xFFFFFF and color)
@@ -204,6 +231,7 @@ object ColorUtils {
     /**
      * This specific class will be used to generate random colors.
      * This should be more optimised than the old method.
+     * @since 0.0.1
      */
     private object RandomColor {
         /**
@@ -218,6 +246,7 @@ object ColorUtils {
          *
          * For Two-primary, we are going to have 2 primary shades with value ranging from 64-128,
          * while the other one will have value less than 0.
+         * @since 0.0.1
          */
         private const val MODE_ONE_PRIMARY = 0
         private const val MODE_TWO_PRIMARY = 1
@@ -226,6 +255,7 @@ object ColorUtils {
          * Method to get random dark color based on one-primary mode logic.
          *
          * @return Random color based on one-primary mode logic.
+         * @since 0.0.1
          */
         @ColorInt
         private fun getOnePrimaryColor(): Int {
@@ -251,6 +281,7 @@ object ColorUtils {
          * Method to get random dark color based on two-primary mode logic.
          *
          * @return Random color based on two-primary mode logic.
+         * @since 0.0.1
          */
         @ColorInt
         private fun getTwoPrimaryColor(): Int {
@@ -280,6 +311,7 @@ object ColorUtils {
          * Driver method to get random dark color.
          *
          * @return Random dark color.
+         * @since 0.0.1
          */
         @ColorInt
         fun getRandomDarkColor() =
