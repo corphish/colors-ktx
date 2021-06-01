@@ -12,7 +12,7 @@ import com.corphish.colors.ktx.compose.ColorPalette
 fun ColorFeastTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
     val colors = ColorPalette.generate(
         primary = Color.parseColor("#009933"),
-        secondary = Color.parseColor("#2132cs")
+        secondary = Color.parseColor("#2132cf")
     ).get(darkTheme = darkTheme)
 
     MaterialTheme(
