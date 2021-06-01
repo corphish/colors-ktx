@@ -2,6 +2,7 @@ package com.corphish.colors.ktx
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import java.lang.IllegalArgumentException
 
 /*
  * This file contains various color related extensions.
@@ -70,3 +71,56 @@ val @receiver:ColorInt Int.onSurfaceColor: Int
 @ColorInt
 fun @receiver:ColorInt Int.onSurfaceColorBy(colorSelection: (Boolean) -> Int): Int =
     colorSelection(ColorUtils.isColorDark(this))
+
+/**
+ * Converts a hexadecimal color in form of String to its Int representation.
+ * If the String does not represent a color, null is returned.
+ *
+ * @return Color as Int if String denotes a color, null otherwise.
+ * @since 0.0.1
+ */
+@ColorInt
+fun String.asColorInt(): Int? {
+    return try {
+        Color.parseColor(this)
+    } catch (e: IllegalArgumentException) {
+        null
+    }
+}
+
+/**
+ * Converts a hexadecimal color in form of String to its Int representation.
+ * If the String does not represent a color, fallback color is returned.
+ *
+ * @param fallbackColor Fallback color if the String does not denote a color.
+ * @return Color as Int if String denotes a color, fallback color otherwise.
+ * @since 0.0.1
+ */
+@ColorInt
+fun String.asColorIntOr(@ColorInt fallbackColor: Int): Int {
+    return try {
+        Color.parseColor(this)
+    } catch (e: IllegalArgumentException) {
+        fallbackColor
+    }
+}
+
+/**
+ * Converts a hexadecimal color in form of String to its Int representation.
+ * If the String does not represent a color, black color is returned.
+ *
+ * @return Color as Int if String denotes a color, black color otherwise.
+ * @since 0.0.1
+ */
+@ColorInt
+fun String.asColorIntOrBlack() = this.asColorIntOr(Color.BLACK)
+
+/**
+ * Converts a hexadecimal color in form of String to its Int representation.
+ * If the String does not represent a color, white color is returned.
+ *
+ * @return Color as Int if String denotes a color, white color otherwise.
+ * @since 0.0.1
+ */
+@ColorInt
+fun String.asColorIntOrWhite() = this.asColorIntOr(Color.WHITE)
