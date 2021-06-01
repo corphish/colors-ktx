@@ -38,6 +38,7 @@ android {
 dependencies {
     // Needed for library
     implementation 'androidx.annotation:annotation:1.2.0'
+    implementation "androidx.compose.material:material:1.0.0-beta07"
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
