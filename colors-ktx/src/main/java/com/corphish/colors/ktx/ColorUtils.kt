@@ -2,6 +2,7 @@ package com.corphish.colors.ktx
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import androidx.annotation.FloatRange
 
 /**
  * Utility class that provides various helpers for working with colors.
@@ -122,6 +123,74 @@ object ColorUtils {
             0 -> getRandomDarkColor()
             else -> getRandomLightColor()
         }
+
+    /**
+     * Gets a color that would be suitable to be drawn on a surface with given color.
+     *
+     * @param color Surface color.
+     * @param colorIfDark Color to choose if the surface color is dark. This is optional parameter
+     *                    whose default value is white.
+     * @param colorIfLight Color to choose if the surface color is light. This is optional parameter
+     *                    whose default value is black.
+     * @return Color suitable for that surface.
+     * @since 0.0.1
+     */
+    @ColorInt
+    fun getOnSurfaceColorFor(
+        @ColorInt color: Int,
+        @ColorInt colorIfDark: Int = Color.WHITE,
+        @ColorInt colorIfLight: Int = Color.BLACK
+    ) = if (isColorDark(color)) {
+        colorIfDark
+    } else {
+        colorIfLight
+    }
+
+    /**
+     * Reduces the alpha channel of a given color by given percentage.
+     *
+     * @param color Color whose alpha value needs to be reduced.
+     * @param reductionPercentage Percentage by which the alpha channel value must be reduced.
+     *                            This value is a float whose value must lie between -1 and 1.
+     *                            Although this value is optional (whose default value is 0.1), it
+     *                            is highly recommended to supply a value here.
+     * @return Color with reduced alpha.
+     * @since 0.0.1
+     */
+    @ColorInt
+    fun reduceAlpha(
+        @ColorInt color: Int,
+        @FloatRange(from = -1.0, to = 1.0) reductionPercentage: Float = 0.1f
+    ): Int {
+        val alpha = (Color.alpha(color) * (1 - reductionPercentage))
+            .toInt()
+            .coerceAtLeast(0)
+            .coerceAtMost(255)
+
+        return Color.argb(
+            alpha,
+            Color.red(color),
+            Color.green(color),
+            Color.blue(color)
+        )
+    }
+
+    /**
+     * Increases the alpha channel of a given color by given percentage.
+     *
+     * @param color Color whose alpha value needs to be reduced.
+     * @param increasePercentage Percentage by which the alpha channel value must be increased.
+     *                           This value is a float whose value must lie between -1 and 1.
+     *                           Although this value is optional (whose default value is 0.1), it
+     *                           is highly recommended to supply a value here.
+     * @return Color with increased alpha.
+     * @since 0.0.1
+     */
+    @ColorInt
+    fun increaseAlpha(
+        @ColorInt color: Int,
+        @FloatRange(from = 0.0, to = 1.0) increasePercentage: Float = 0.1f
+    ) = reduceAlpha(color, -increasePercentage)
 
     /**
      * Gets the hex string representation of a color.
