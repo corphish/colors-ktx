@@ -116,6 +116,13 @@ object ColorUtils {
         return Color.rgb(red, green, blue)
     }
 
+    @ColorInt
+    fun getRandomColor() =
+        when ((Math.random() * 2).toInt()) {
+            0 -> getRandomDarkColor()
+            else -> getRandomLightColor()
+        }
+
     /**
      * Gets the hex string representation of a color.
      *
